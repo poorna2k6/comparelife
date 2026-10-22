@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Source {
+  id      String   @id // e.g. "worldbank-wdi"
+  name    String
+  url     String
+  licence String
+  metrics Metric[]
+}
+
+model Country {
+  iso2       String   @id
+  iso3       String   @unique
+  name       String
+  currency   String?
+  population BigInt?
+  regions    Region[]
+  cities     City[]
+}
+
+// First-level administrative division (state / province / region).
+model Region {
+  id         String  @id // GeoNames admin1 key, e.g. "US.CA"
+  countryIso String
+  name       String
+  country    Country @relation(fields: [countryIso], references: [iso2])
+  cities     City[]
+
+  @@index([countryIso])
+}
+
+model City {
+  id         Int     @id // GeoNames id
+  countryIso String
+  regionId   String?
+  name       String
+  lat        Float
+  lon        Float
+  population Int?
+  country    Country @relation(fields: [countryIso], references: [iso2])
+  region     Region? @relation(fields: [regionId], references: [id])
+
+  @@index([countryIso, regionId])
+  @@index([name])
+}
+
+// Every number in the app is a Metric row with provenance. No row = "no data".
+model Metric {
+  id         Int      @id @default(autoincrement())
+  entityType String // "country" | "region" | "city"
+  entityId   String
+  key        String // e.g. "gdp_per_capita_ppp"
+  value      Float
+  unit       String
+  year       Int
+  sourceId   String
+  sourceUrl  String
+  source     Source   @relation(fields: [sourceId], references: [id])
+  fetchedAt  DateTime @default(now())
+
+  @@unique([entityType, entityId, key, year])
+  @@index([entityType, entityId])
+}
