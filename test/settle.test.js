@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { allocate, settle } from '../lib/settle.js';
+import { allocate, settle } from '../src/settle.js';
 
 const sum = (a) => a.reduce((x, y) => x + y, 0);
 

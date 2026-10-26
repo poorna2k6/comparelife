@@ -1,26 +1,29 @@
 # FitPot 🏆
 
-Fitness challenges for friends with money on the line.
+Fitness challenges for friends with money (or just points) on the line.
 
-1. **Organiser** creates a challenge: what to track (steps, calories, workout minutes, km, or any custom metric), duration (1 week / month / year), entry fee, and a **stay-in line** (e.g. 50 % of the leader's total).
-2. **Friends join** with a short invite code (before the start date) and pay the entry fee; the organiser confirms each payment.
-3. Everyone **logs** their numbers daily; a live leaderboard shows who is safe and who is at risk.
-4. When it ends, anyone below the stay-in line **forfeits their stake**. The forfeited pot is shared among everyone who stayed in - **in proportion to what they achieved** (or equally, your choice) - on top of getting their own stake back.
+1. **Organiser** creates a challenge: what to track (steps, calories, workout minutes, km, or anything custom),
+   duration (1 week / month / year), entry fee, and a **stay-in line** (e.g. 50 % of the leader's total).
+2. **Friends join** by invite link/code before the start date and pay; the organiser confirms each payment.
+3. Everyone **logs** daily numbers; a live leaderboard shows who is safe and who is at risk. Friends can flag
+   suspicious entries; the organiser can remove them. Everything is recorded in a tamper-proof history.
+4. When it ends, anyone below the line **forfeits their stake**; the pot is shared among those who stayed in -
+   **in proportion to what they achieved** (or equally) - plus they get their own stake back.
 
-FitPot does not move money. It tracks who has paid, computes exact payouts (integer cents, largest-remainder rounding, total payouts always equal the pot), and lets the organiser mark each payout as sent. Entries are visible to everyone, can be capped per day, and are locked once the organiser settles.
+FitPot does not move money today: the organiser holds the pot and the app computes exact payouts, tracks each
+transfer in an append-only ledger and shows "reconciled" when the pot is fully paid out.
+
+> ⚠️ Pooling and redistributing stakes may be regulated as gambling in your country. Read
+> [docs/LAUNCH.md](docs/LAUNCH.md) before enabling real money (`ALLOW_REAL_MONEY`).
 
 ## Run
 
-Requires Node 22.13+ (uses built-in `node:sqlite`; no dependencies).
+Node 22.13+, no dependencies.
 
 ```
-npm start        # http://localhost:3000   (PORT, DB_PATH env vars)
-npm test
+npm start            # http://localhost:3000
+npm test             # unit + API + security tests
+docker compose up    # production-style (see .env.example)
 ```
 
-## Layout
-
-- `lib/settle.js` - pure payout engine (tested)
-- `lib/dates.js`, `lib/db.js` - date maths, SQLite schema
-- `server.js` - HTTP API + static files
-- `public/` - mobile-first single-page UI
+Docs: [architecture & security model](docs/ARCHITECTURE.md) · [launch checklist](docs/LAUNCH.md)

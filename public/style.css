@@ -32,3 +32,11 @@ button:disabled{opacity:.5}
 #toast.show{transform:translate(-50%,0)}
 .note{background:var(--soft);border-radius:10px;padding:10px 12px;font-size:.9rem}
 a{color:var(--brand)}
+label>span.l{display:block;font-size:.85rem;color:var(--mute);margin:10px 0 4px}
+label{margin:0}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.pill.red{background:#fee4e2;color:#b42318}
+.mono{font-family:ui-monospace,monospace;font-size:.8rem}
+.sr{position:absolute;left:-9999px}
+.link{background:none;border:0;padding:0;color:var(--brand);text-decoration:underline}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}

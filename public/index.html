@@ -4,12 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FitPot</title>
+<meta name="theme-color" content="#0f9d6b">
+<meta name="description" content="Fitness challenges with friends - stay in the race or lose your stake.">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <header><a href="#/" class="brand">🏆 FitPot</a><span id="who"></span></header>
-<main id="app"></main>
-<div id="toast" role="status"></div>
+<main id="app"><noscript>FitPot needs JavaScript.</noscript></main>
+<div id="toast" role="status" aria-live="polite"></div>
 <script src="/app.js" type="module"></script>
 </body>
 </html>
